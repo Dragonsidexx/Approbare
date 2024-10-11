@@ -1,0 +1,142 @@
+/* Estilos gerais do corpo da página */
+body {
+    font-family: Arial, sans-serif; /* Fonte padrão da página */
+    margin: 0; /* Remove a margem padrão do corpo */
+    padding: 0; /* Remove o padding padrão do corpo */
+    background-color: black; /* Cor de fundo da página */
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* Estilos do cabeçalho */
+.header {
+    background-color: black; /* Cor de fundo do cabeçalho */
+    color: #fff; /* Cor do texto do cabeçalho */
+    padding: 15px; /* Espaçamento interno do cabeçalho */
+    display: flex; /* Usando flexbox para layout */
+    justify-content: space-between; /* Espaça o conteúdo entre os lados */
+    align-items: center; /* Alinha verticalmente os itens */
+}
+
+/* Estilos para a imagem do logo */
+.logo img {
+    height: 45px; /* Altura da imagem do logo */
+    width: 50px; /* Largura da imagem do logo */
+}
+
+/* Estilos da sidebar (menu lateral) */
+.sidebar {
+    display: none; /* Oculta a sidebar inicialmente */
+    /* Adicione mais estilos conforme necessário */
+}
+
+.hamburger {
+    cursor: pointer;
+    font-size: 30px;
+    padding: 10px;
+}
+
+/* Estilos para a sidebar quando está aberta */
+.sidebar.open {
+    display: block; /* Mostra a sidebar quando a classe "open" é adicionada */
+}
+
+
+.sidebar nav a {
+    display: inline-block; /* Define como bloco inline */
+    padding: 10px; /* Espaçamento interno dos links */
+    color: white; /* Cor do texto */
+    background-color: black; /* Cor de fundo */
+    text-decoration: none; /* Remove sublinhado */
+}
+
+.sidebar nav a:hover {
+    background-color: gray; /* Cor de fundo ao passar o mouse */
+}
+
+/* Estilos do conteúdo principal */
+.content {
+    margin-left: 260px; /* Margem à esquerda para acomodar a sidebar */
+    padding: 20px; /* Espaçamento interno do conteúdo */
+}
+
+/* Estilos dos cartões */
+.card {
+    background: white; /* Cor de fundo dos cartões */
+    border-radius: 5px; /* Cantos arredondados dos cartões */
+    padding: 20px; /* Espaçamento interno do cartão */
+    margin: 10px 0; /* Margem acima e abaixo do cartão */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Sombra do cartão */
+}
+
+/* Estilos do cabeçalho do cartão */
+.card-header {
+    font-weight: bold; /* Texto em negrito para o cabeçalho do cartão */
+}
+
+/* Estilos para a linha de cartões */
+.row {
+    display: flex; /* Usando flexbox para o layout dos cartões */
+    flex-wrap: wrap; /* Permite que os cartões quebrem a linha se não houver espaço */
+}
+
+/* Estilos para as colunas dos cartões */
+.col {
+    flex: 1; /* As colunas ocupam o mesmo espaço */
+    min-width: 200px; /* Largura mínima das colunas */
+    margin: 10px; /* Margem ao redor das colunas */
+}
+
+/* Estilos para os links */
+.links {
+    text-decoration: none; /* Remove o sublinhado dos links */
+}
+
+.links:hover{
+    color: white;
+}
+/* Estilos para os botões */
+.button {
+    background-color: black;
+    color: red; 
+    border-radius: 15px;   
+}
+
+.button:hover{
+    background-color: white;
+    color: blueviolet;
+}
+/* Estilos do título principal */
+h1 {
+    text-align: center; /* Centraliza o título */
+    margin: 20px 0; /* Margem acima e abaixo do título */
+    font-size: 24px; /* Tamanho da fonte do título */
+}
+
+/* Estilos do contêiner do cabeçalho */
+.header-container {
+    display: flex; /* Define o layout como flexível */
+    align-items: center; /* Alinha verticalmente no centro */
+    justify-content: space-between; /* Espaça os elementos de forma equilibrada */
+    padding: 10px 20px; /* Espaçamento ao redor */
+}
+/* Estilos do título do cabeçalho */
+.titleDash {
+    flex: 1; /* Ocupa o espaço restante */
+    text-align: center; /* Centraliza o título */
+    font-size: 24px; /* Tamanho da fonte do título */
+    margin: 0; /* Remove margens do título */
+    color: red;
+
+}
+
+/* Estilos para o botão hambúrguer na classe header */
+.hamburger {
+    cursor: pointer; /* Muda o cursor ao passar sobre o botão */
+    font-size: 30px; /* Tamanho do botão hambúrguer */
+    padding: 10px; /* Espaçamento ao redor do botão */
+    margin-right: 10px; /* Espaço à direita do botão */
+}
+
+hr{
+    color: red;
+}
