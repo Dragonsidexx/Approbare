@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuário</title>
+    <link rel="stylesheet" href="/CSS/user.css">
+    <link rel="icon" href="/Images/logoBran.jfif">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <img src="<?php echo $user['foto'] ?: 'perfilPhoto.jfif'; ?>" alt="Foto de perfil" class="profile-img">
+            <h1 class="h1r"><?php echo htmlspecialchars($user['nome']); ?></h1>
+            <p class="bio">Arquiteto(a)</p>
+        </div>
+
+        <div class="profile-details" id="profileDetails">
+            <h2 class="info">Informações Pessoais:</h2>
+            <ul>
+                <li><strong>Nome:</strong> <span id="nome"><?php echo htmlspecialchars($user['nome']); ?></span></li>
+                <li><strong>Email:</strong> <span id="email"><?php echo htmlspecialchars($user['email']); ?></span></li>
+                <li><strong>Telefone:</strong> <span id="telefone"><?php echo htmlspecialchars($user['telefone']); ?></span></li>
+            </ul>
+        </div>
+
+        <div id="errorMessage" style="color: red;"></div>
+
+        <div class="edit-profile" id="editProfile" style="display: none;">
+            <h2>Editar Informações Pessoais</h2>
+            <form id="editForm" method="POST" action="user.php" enctype="multipart/form-data">
+                <label for="editNome">Nome:</label>
+                <input type="text" id="editNome" name="nome" value="<?php echo htmlspecialchars($user['nome']); ?>" required>
+
+                <label for="editEmail">Email:</label>
+                <input type="email" id="editEmail" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+
+                <label for="editTelefone">Telefone:</label>
+                <input type="text" id="editTelefone" name="telefone" value="<?php echo htmlspecialchars($user['telefone']); ?>" required>
+
+                <label for="foto">Foto de Perfil:</label>
+                <input type="file" id="foto" name="foto">
+
+                <button type="submit" class="btn">Salvar Alterações</button>
+                <button type="button" class="btn cancel" onclick="cancelEdit()">Cancelar</button>
+            </form>
+        </div>
+
+        <div class="profile-actions">
+            <button class="btn" id="editBtn" onclick="editProfile()">Editar Perfil</button>
+            <a href="logout.php"><button class="btn logout">Sair</button></a>
+        </div>
+    </div>
+    <script src="/JS/user.js"></script>
+</body>
+</html>

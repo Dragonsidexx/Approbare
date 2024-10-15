@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Relatório de Clientes</title>
+    <link rel="shortcut icon" href="Images/logoBran.jfif" type="image/x-icon">
+    <link rel="stylesheet" href="/CSS/rela.css ">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Relatório de Clientes</h1>
+        <hr>
+
+        <!-- Campo de Pesquisa -->
+        <input type="text" id="search" placeholder="Pesquisar cliente..." class="search-input">
+
+        <!-- Tabela de Clientes -->
+        <table class="client-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Receita Gerada</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="client-list">
+                <?php
+                // Verifica se os dados estão na URL
+                if (isset($_GET['nome']) && isset($_GET['email']) && isset($_GET['receita'])) {
+                    $nome = htmlspecialchars($_GET['nome']);
+                    $email = htmlspecialchars($_GET['email']);
+                    $receita = htmlspecialchars($_GET['receita']);
+                    
+                    // Exibe o cliente cadastrado na tabela
+                    echo "<tr>";
+                    echo "<td>$nome</td>";
+                    echo "<td>$email</td>";
+                    echo "<td>R$ $receita</td>";
+                    echo "<td><button class='delete-button'>Excluir</button></td>";
+                    echo "</tr>";
+                } else {
+                    echo "<tr><td colspan='4'>Nenhum cliente cadastrado.</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+
+        <!-- Exibição do Total Gerado e Lucro/Prejuízo -->
+        <h2>Total Gerado: <span id="total-gerado">R$ 0,00</span></h2>
+        <h2 id="lucro-status"></h2>
+
+        <!-- Gráfico -->
+        <canvas id="revenueChart" width="400" height="200"></canvas>
+
+        <!-- Botão para Voltar -->
+        <a href="sistem.html">
+            <button class="button">Voltar</button>
+        </a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/JS/rela.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+:root {
+    --clr-neon: hsl(0, 100%, 50%);
+    --clr-bg: hsl(0, 21%, 16%);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: black;
+    font-family: 'Times New Roman', Times, serif;
+    color: aliceblue;
+}
+
+header {
+    background-color: rgb(22, 21, 21);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav ul li {
+    display: flex;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 8px 12px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background: none;
+}
+
+.neon-button {
+    font-size: 1.5rem;
+    padding: 0.5em 1em;
+    border-radius: 0.25em;
+    border: 2px solid transparent;
+    background-color: transparent;
+    color: white;
+    position: relative;
+    transition: color 0.3s, text-shadow 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.neon-button::before,
+.neon-button::after {
+    content: "";
+    position: absolute;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+    z-index: -1;
+}
+
+.neon-button:hover {
+    color: red;
+    border-color: red;
+    text-shadow: 0 0 0.5em red, 0 0 1em red;
+    box-shadow: 0 0 15px red, 0 0 30px red;
+}
+
+.neon-button:hover::before {
+    background: red;
+    top: 50px;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    transform: perspective(1em) rotateX(40deg) scale(1, 0.35);
+    filter: blur(1em);
+    opacity: 0.7;
+}
+
+.neon-button:hover::after {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0 0 20px 5px red;
+    background: none;
+    opacity: 1;
+}
+
+.wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+}
+
+.link, .email {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.link {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.link:hover {
+    box-shadow: 0 0 10px red;
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.email {
+    background: brown;
+}
+
+.email:hover {
+    background-color: rgb(189, 18, 18);
+    box-shadow: 0 0 10px red;
+    transform: scale(1.1);
+}
+
+.app {
+    color: red;
+    text-align: center;
+}

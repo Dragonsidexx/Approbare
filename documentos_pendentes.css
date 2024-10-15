@@ -1,0 +1,39 @@
+body {
+    background-color: black;
+    color: red;
+}
+
+.docs {
+    text-align: center;
+    color: red;
+}
+
+.button {
+    background-color: black;
+    color: red;
+    border-radius: 15px;
+    padding: 10px 20px; /* Adicionando padding para o botão */
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: white;
+    color: blueviolet;
+}
+
+.documentos {
+    margin: 20px auto;
+    max-width: 600px; /* Limitar a largura do contêiner de documentos */
+    padding: 10px;
+    border: 1px solid red; /* Borda para destaque */
+    border-radius: 10px; /* Bordas arredondadas */
+}
+
+.documento {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fundo semitransparente */
+    border-radius: 5px;
+}

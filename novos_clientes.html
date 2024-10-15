@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente</title>
+
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="/CSS/login.css">
+
+    <!-- Remixicon CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Ícone da Página -->
+    <link rel="icon" href="/Images/logoBran.jfif">
+</head>
+<body>
+    <div class="login">
+        <form class="container" id="cadastroForm" action="/PHP/conexao.php" method="POST">
+            <a href='/HTML/dashbord.html'>
+                <img src="/Images/Logo.jpg" alt="Mini Logo" class="login__mini-logo"> 
+            </a>
+            <h1 class="login__title">Cadastro</h1>
+
+            <div class="login__content">
+                <div class="login__box">
+                    <i class="ri-user-3-line login__icon"></i>
+                    <div class="login__box-input">
+                        <input type="text" name="nome" required class="login__input" placeholder=" ">
+                        <label for="nome" class="login__label">Nome do Cliente</label>
+                    </div>
+                </div>
+
+                <div class="login__box">
+                    <i class="ri-mail-line login__icon"></i>
+                    <div class="login__box-input">
+                        <input type="email" name="email" required class="login__input" placeholder=" ">
+                        <label for="email" class="login__label">Email</label>
+                    </div>
+                </div>
+
+                <div class="login__box">
+                    <i class="ri-currency-line login__icon"></i>
+                    <div class="login__box-input">
+                        <input type="number" step="0.01" name="receita" required class="login__input" placeholder=" ">
+                        <label for="receita" class="login__label">Receita Gerada pelo Cliente</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="login__button">Cadastrar</button>
+        </form>
+    </div>
+    <script src="/JS/login.js"></script>
+</body>
+</html>

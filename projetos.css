@@ -1,0 +1,28 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.proj {
+    color: red;
+    text-align: center;
+}
+
+hr {
+    border-color: red;
+}
+
+.button {
+    background-color: black;
+    color: red;
+    border-radius: 15px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: white;
+    color: blueviolet;
+}

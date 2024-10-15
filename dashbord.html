@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title> 
+    <link rel="shortcut icon" href="/Images/logoBran.jfif" type="image/x-icon"> 
+    <link rel="stylesheet" href="/CSS/dashbord.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="/HTML/index.html">
+                <img src="/Images/Logo.jpg" alt="Logo"/>
+            </a>
+        </div>
+        <h1 class="titleDash">Dashboard</h1>
+        <div class="user-info">
+            <span>Usuário: <?php echo $username; ?></span>
+        </div>
+    </header>
+    <hr>
+
+    <div class="header-container">
+        <div class="hamburger" id="hamburger">&#9776;</div>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <a class="links" href="/HTML/novos_clientes.html">Cadastros de Clientes</a>
+            <a class="links" href="/HTML/rela.html">Relatórios</a>
+            <a class="links" href="/HTML/user.html">Usuários</a>
+        </nav>
+    </aside>
+
+    <main class="content">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Novos Projetos</div>
+                    <a href="/HTML/novos_projetos.html">
+                        <button class="button">Visualizar</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Projetos em Andamento</div>
+                    <a href="/HTML/projetos.html">
+                        <button class="button">Visualizar</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Novos Clientes</div>
+                    <a href="/HTML/novos_clientes.html">
+                        <button class="button">Visualizar</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Novas Solicitações</div>
+                    <a href="/HTML/novas_solicitacoes.html">
+                        <button class="button">Visualizar</button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">Documentos Pendentes</div>
+                    <a href="/HTML/documentos_pendentes.html">
+                        <button class="button">Visualizar</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="/JS/dashbord.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+
+body {
+    background-color: black;
+    color: white;
+}
+.novas {
+    text-align: center;
+    color: red;
+}
+.button {
+    background-color: black;
+    color: red;
+    border-radius: 15px;
+}
+.button:hover {
+    background-color: white;
+    color: blueviolet;
+}
+table {
+    width: 80%;
+    margin: auto;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid red;
+    padding: 10px;
+    text-align: center;
+}
+th {
+    background-color: red;
+    color: white;
+}

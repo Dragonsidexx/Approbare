@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <!-- CSS Externo -->
+    <link rel="stylesheet" href="/CSS/login.css">
+
+    <!-- Remixicon CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Ícone da Página -->
+    <link rel="icon" href="/Images/logoBran.jfif">
+</head>
+<body>
+    <div class="login">
+        <form class="container" id="loginForm" action="/PHP/dashbord.php" method="POST">
+            <a href='/HTML/index.html'>
+                <img src="/Images/Logo.jpg" alt="Mini Logo" class="login__mini-logo"> 
+            </a>
+            <h1 class="login__title">Login</h1>
+
+            <div class="login__content">
+                <div class="login__box">
+                    <i class="ri-user-3-line login__icon"></i>
+                    <div class="login__box-input">
+                        <input type="email" name="email" required class="login__input" id="login-email" placeholder="">
+                        <label for="login-email" class="login__label">Email</label>
+                    </div>
+                </div>
+
+                <div class="login__box">
+                    <i class="ri-lock-2-line login__icon"></i>
+                    <div class="login__box-input">
+                        <input type="password" name="senha" required class="login__input" id="login-pass" placeholder="">
+                        <label for="login-pass" class="login__label">Senha</label>
+                        <i class="ri-eye-off-line login__eye" id="login-eye"></i>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="login__button" id="login-button">Login</button>
+        </form>
+    </div>
+
+
+    <a href="dashbord.html">ENntar
+    </a>
+    <script src="/JS/login.js"></script>
+</body>
+</html>

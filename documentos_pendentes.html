@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentos Pendentes</title>
+    <link rel="stylesheet" href="/CSS/documentos_pendentes.css">
+    <link rel="shortcut icon" href="/Images/logoBran.jfif" type="image/x-icon">
+</head>
+<body>
+    <h1 class="docs">Documentos Pendentes</h1>
+    <hr>
+
+    <div class="documentos">
+        <?php if ($result->num_rows > 0): ?>
+            <?php while($row = $result->fetch_assoc()): ?>
+                <div class="documento">
+                    <strong>Nome do Cliente:</strong><?php echo htmlspecialchars($row['cliente_nome']); ?><br>
+                    <strong>E-mail:</strong> <?php echo htmlspecialchars($row['email']); ?><br>
+                    <strong>Documentos Pendentes:</strong> <?php echo htmlspecialchars($row['documentos_faltando']); ?><br>
+                    <strong>Data da Solicitação:</strong> <?php echo date("d/m/Y H:i", strtotime($row['data_solicitacao'])); ?>
+                </div>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>Não há documentos pendentes.</p>
+        <?php endif; ?>
+    </div>
+
+    <a href="sistem.html">
+        <button class="button">Voltar</button>
+    </a>
+</body>
+</html>

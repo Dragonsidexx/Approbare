@@ -1,0 +1,24 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.novos {
+    text-align: center;
+    color: red;
+}
+
+.button {
+    background-color: black;
+    color: red;
+    border-radius: 15px;
+    padding: 10px 20px; /* Adicionando padding para o botão */
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: white;
+    color: blueviolet;
+}

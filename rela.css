@@ -1,0 +1,68 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: black;
+    margin: 0;
+    padding: 20px;
+    color: white;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: black;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    color: white;
+}
+
+.title {
+    text-align: center;
+    color: red;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background: none;
+    border: none;
+    color: aqua;
+}
+
+.client-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: black;
+    color: white;
+}
+
+.client-table th, .client-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.client-table th {
+    background-color: black;
+}
+
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+hr {
+    border-color: red;
+}
+
+.button {
+    background-color: black;
+    color: red;
+    border-radius: 15px;
+}

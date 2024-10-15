@@ -1,0 +1,118 @@
+    /* Estilos gerais do corpo da página */
+    body {
+        font-family: 'Times New Roman', Times, serif;
+        margin: 0;
+        padding: 0;
+        background-color: black;
+    }
+
+    /* Estilos do cabeçalho */
+    .header {
+        background-color: black;
+        color: #fff;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo img {
+        height: 45px;
+        width: 70px;
+    }
+
+    .hamburger {
+        cursor: pointer;
+        font-size: 30px;
+        padding: 10px;
+        color: white;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 0;
+        overflow: hidden;
+        transition: width 0.3s ease-in-out;
+        background-color: black;
+    }
+
+    .sidebar.open {
+        width: 200px;
+    }
+
+    .sidebar nav a {
+        display: block;
+        padding: 10px;
+        color: white;
+        text-decoration: none;
+    }
+
+    .sidebar nav a:hover {
+        background-color: gray;
+    }
+
+    /* Conteúdo principal */
+    .content {
+        margin-left: 0;
+        padding: 20px;
+        color: red;
+        background-color: black;
+        transition: margin-left 0.3s ease-in-out;
+    }
+
+    .sidebar.open + .content {
+        margin-left: 200px;
+    }
+
+    /* Cartões */
+    .card {
+        background: gray;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 10px 0;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        color: white;
+    }
+
+    .card-header {
+        font-weight: bold;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col {
+        flex: 1;
+        min-width: 200px;
+        margin: 10px;
+    }
+
+    .button {
+        font-size: 1rem;
+        padding: 0.3em 0.6em;
+        border-radius: 15px;
+        border: 1px solid transparent;
+        background-color: black;
+        color: red;
+        transition: all 0.3s;
+    }
+
+    .button:hover {
+        color: red;
+        border-color: red;
+        text-shadow: 0 0 0.4em red, 0 0 0.8em red;
+        box-shadow: 0 0 10px red, 0 0 20px red;
+    }
+
+    h1 {
+        text-align: center;
+        margin: 20px 0;
+        font-size: 24px;
+        color: red;
+    }
+
+    hr {
+        color: red;
+    }
