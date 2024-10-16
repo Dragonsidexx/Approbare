@@ -1,18 +1,63 @@
+<?php
+// Conexão com o banco de dados
+$servername = "localhost"; // Altere se necessário
+$username = "root"; // Altere se necessário
+$password = ""; // Altere se necessário
+$dbname = "nome_do_seu_banco"; // Substitua pelo nome do seu banco de dados
+
+// Criar conexão
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar conexão
+if ($conn->connect_error) {
+    die("Erro de conexão: " . $conn->connect_error);
+}
+
+// Supondo que você tenha o ID do usuário armazenado na sessão
+session_start();
+$userId = $_SESSION['user_id']; // Ajuste para corresponder ao seu sistema de autenticação
+
+// Consulta para pegar informações do usuário
+$sql = "SELECT nome, email, foto, cargo, bio FROM usuarios WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId); // "i" significa que o parâmetro é um inteiro
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    // Recuperar os dados do usuário
+    $user = $result->fetch_assoc();
+} else {
+    // Caso não encontre o usuário
+    $user = [
+        'nome' => 'Nome não encontrado',
+        'email' => 'Email não encontrado',
+        'foto' => 'perfilPhoto.jfif',
+        'cargo' => 'Cargo não disponível',
+        'bio' => 'Bio não disponível' // Adiciona a bio padrão
+    ];
+}
+
+// Fechar a conexão
+$stmt->close();
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuário</title>
-    <link rel="stylesheet" href="/CSS/user.css">
-    <link rel="icon" href="/Images/logoBran.jfif">
+    <link rel="stylesheet" href="user.css">
+    <link rel="icon" href="logoBran.jfif">
 </head>
 <body>
     <div class="container">
         <div class="profile-header">
-            <img src="<?php echo $user['foto'] ?: 'perfilPhoto.jfif'; ?>" alt="Foto de perfil" class="profile-img">
+            <img src="<?php echo isset($user['foto']) ? htmlspecialchars($user['foto']) : 'perfilPhoto.jfif'; ?>" alt="Foto de perfil" class="profile-img">
             <h1 class="h1r"><?php echo htmlspecialchars($user['nome']); ?></h1>
-            <p class="bio">Arquiteto(a)</p>
+            <p class="bio"><?php echo htmlspecialchars($user['bio']); ?></p> 
         </div>
 
         <div class="profile-details" id="profileDetails">
@@ -20,7 +65,6 @@
             <ul>
                 <li><strong>Nome:</strong> <span id="nome"><?php echo htmlspecialchars($user['nome']); ?></span></li>
                 <li><strong>Email:</strong> <span id="email"><?php echo htmlspecialchars($user['email']); ?></span></li>
-                <li><strong>Telefone:</strong> <span id="telefone"><?php echo htmlspecialchars($user['telefone']); ?></span></li>
             </ul>
         </div>
 
@@ -35,8 +79,9 @@
                 <label for="editEmail">Email:</label>
                 <input type="email" id="editEmail" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
 
-                <label for="editTelefone">Telefone:</label>
-                <input type="text" id="editTelefone" name="telefone" value="<?php echo htmlspecialchars($user['telefone']); ?>" required>
+                
+                <label for="editBio">Bio:</label> 
+                <textarea id="editBio" name="bio" required><?php echo htmlspecialchars($user['bio']); ?></textarea>
 
                 <label for="foto">Foto de Perfil:</label>
                 <input type="file" id="foto" name="foto">
@@ -48,9 +93,9 @@
 
         <div class="profile-actions">
             <button class="btn" id="editBtn" onclick="editProfile()">Editar Perfil</button>
-            <a href="logout.php"><button class="btn logout">Sair</button></a>
+            <a href="user.html"><button class="btn logout">Sair</button></a>
         </div>
     </div>
-    <script src="/JS/user.js"></script>
+    <script src="user.js"></script>
 </body>
 </html>

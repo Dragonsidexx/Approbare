@@ -1,72 +1,178 @@
 <?php
-session_start();
-
 // Conexão com o banco de dados
-$servername = "localhost";
-$username = "root";  // Nome de usuário do MySQL
-$password = "Robvic09";  // Senha do MySQL (deixe em branco se não houver senha)
-$dbname = "approb98_Approbare";  // Nome do seu banco de dados
+$servername = "localhost"; // Altere se necessário
+$username = "root"; // Altere se necessário
+$password = ""; // Altere se necessário
+$dbname = "approbare"; // Substitua pelo nome do seu banco de dados
 
-try {
-    $conn = new PDO("mysql:host=$host;dbname=$db;charset=utf8mb4", $user, $pass);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erro ao conectar ao banco de dados: " . $e->getMessage());
+// Criar conexão
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar conexão
+if ($conn->connect_error) {
+    die("Erro de conexão: " . $conn->connect_error);
 }
 
-// Verifica se o usuário está logado
-if (!isset($_SESSION['usuario_id'])) {
-    header("Location: HTML/dashbord.html");
-    exit();
-}
+// Supondo que você tenha o ID do usuário armazenado na sessão
+session_start();
+$userId = $_SESSION['user_id']; // Ajuste para corresponder ao seu sistema de autenticação
 
-// Busca as informações do usuário logado
-$sql = "SELECT * FROM usuarios WHERE id = :id";
-$stmt = $conn->prepare($sql);
-$stmt->bindParam(':id', $_SESSION['usuario_id']);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+// Inicializa a variável de erro
+$error = "";
 
-if (!$user) {
-    die("Usuário não encontrado.");
-}
-
-// Atualização de dados (via POST)
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $nome = htmlspecialchars(trim($_POST['nome']));
-    $email = htmlspecialchars(trim($_POST['email']));
-    $telefone = htmlspecialchars(trim($_POST['telefone']));
-
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        die("Email inválido.");
+// Verifica se o formulário foi enviado
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validação do nome
+    $nome = trim($_POST['nome']);
+    if (empty($nome)) {
+        $error = "O nome é obrigatório.";
+    } elseif (strlen($nome) > 100) {
+        $error = "O nome deve ter no máximo 100 caracteres.";
     }
 
-    // Upload da foto (caso haja)
-    $foto = $user['foto'];
-    if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = 'uploads/';
-        $foto = $uploadDir . basename($_FILES['foto']['name']);
-        if (!move_uploaded_file($_FILES['foto']['tmp_name'], $foto)) {
-            die("Erro ao fazer upload da foto.");
+    // Validação do email
+    $email = trim($_POST['email']);
+    if (empty($email)) {
+        $error = "O email é obrigatório.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error = "Formato de email inválido.";
+    }
+
+    // Validação da bio
+    $bio = trim($_POST['bio']);
+    if (empty($bio)) {
+        $error = "A bio é obrigatória.";
+    }
+
+    // Se não houver erros, prosseguir para salvar no banco de dados
+    if (empty($error)) {
+        $sqlUpdate = "UPDATE usuarios SET nome = ?, email = ?, bio = ? WHERE id = ?";
+        $stmtUpdate = $conn->prepare($sqlUpdate);
+        $stmtUpdate->bind_param("sssi", $nome, $email, $bio, $userId);
+        
+        if ($stmtUpdate->execute()) {
+            header("Location: user.php"); // redirecionar para a página do usuário após a atualização
+            exit();
+        } else {
+            $error = "Erro ao atualizar informações.";
         }
-    }
-
-    // Atualiza no banco
-    $sql = "UPDATE usuarios SET nome = :nome, email = :email, telefone = :telefone, foto = :foto WHERE id = :id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':nome', $nome);
-    $stmt->bindParam(':email', $email);
-    $stmt->bindParam(':telefone', $telefone);
-    $stmt->bindParam(':foto', $foto);
-    $stmt->bindParam(':id', $_SESSION['usuario_id']);
-
-    if ($stmt->execute()) {
-        header("Location: /HTML/dashbord.html");
-        exit();
-    } else {
-        echo "Erro ao atualizar os dados!";
+        $stmtUpdate->close();
     }
 }
 
-$conn = null;
+// Consulta para pegar informações do usuário
+$sql = "SELECT nome, email, foto, cargo, bio FROM usuarios WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+} else {
+    $user = [
+        'nome' => 'Nome não encontrado',
+        'email' => 'Email não encontrado',
+        'foto' => null, // Não vamos definir uma imagem padrão aqui
+        'cargo' => 'Cargo não disponível',
+        'bio' => 'Bio não disponível'
+    ];
+}
+
+// Fechar a conexão
+$stmt->close();
+$conn->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuário</title>
+    <link rel="stylesheet" href="user.css">
+    <link rel="icon" href="logoBran.jfif">
+    <script>
+        function validateForm() {
+            const nome = document.getElementById('editNome').value.trim();
+            const email = document.getElementById('editEmail').value.trim();
+            const bio = document.getElementById('editBio').value.trim();
+            let errorMessage = "";
+
+            // Validação do nome
+            if (nome === "") {
+                errorMessage += "O nome é obrigatório.\n";
+            } else if (nome.length > 100) {
+                errorMessage += "O nome deve ter no máximo 100 caracteres.\n";
+            }
+
+            // Validação do email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === "") {
+                errorMessage += "O email é obrigatório.\n";
+            } else if (!emailRegex.test(email)) {
+                errorMessage += "Formato de email inválido.\n";
+            }
+
+            // Validação da bio
+            if (bio === "") {
+                errorMessage += "A bio é obrigatória.\n";
+            }
+
+            // Se houver erros, exibe um alerta e impede o envio do formulário
+            if (errorMessage) {
+                alert(errorMessage);
+                return false; // Impede o envio do formulário
+            }
+            return true; // Permite o envio do formulário
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <img src="<?php echo isset($user['foto']) && !empty($user['foto']) ? htmlspecialchars($user['foto']) : 'defaultProfile.jpg'; ?>" alt="Foto de perfil" class="profile-img">
+            <h1 class="h1r"><?php echo htmlspecialchars($user['nome']); ?></h1>
+            <p class="bio"><?php echo htmlspecialchars($user['bio']); ?></p> 
+        </div>
+
+        <div class="profile-details" id="profileDetails">
+            <h2 class="info">Informações Pessoais:</h2>
+            <ul>
+                <li><strong>Nome:</strong> <span id="nome"><?php echo htmlspecialchars($user['nome']); ?></span></li>
+                <li><strong>Email:</strong> <span id="email"><?php echo htmlspecialchars($user['email']); ?></span></li>
+                <li><strong>Cargo:</strong> <span id="cargo"><?php echo htmlspecialchars($user['cargo']); ?></span></li> 
+            </ul>
+        </div>
+
+        <?php if (!empty($error)): ?>
+            <div id="errorMessage" style="color: red;"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+
+        <div class="edit-profile" id="editProfile" style="display: none;">
+            <h2>Editar Informações Pessoais</h2>
+            <form id="editForm" method="POST" action="user.php" enctype="multipart/form-data" onsubmit="return validateForm();">
+                <label for="editNome">Nome:</label>
+                <input type="text" id="editNome" name="nome" value="<?php echo htmlspecialchars($user['nome']); ?>" required>
+
+                <label for="editEmail">Email:</label>
+                <input type="email" id="editEmail" name="email" value="<?php echo htmlspecialchars($user['email']); ?>" required>
+
+                <label for="editBio">Bio:</label> 
+                <textarea id="editBio" name="bio" required><?php echo htmlspecialchars($user['bio']); ?></textarea>
+
+                <label for="foto">Foto de Perfil:</label>
+                <input type="file" id="foto" name="foto">
+
+                <button type="submit" class="btn">Salvar Alterações</button>
+                <button type="button" class="btn cancel" onclick="document.getElementById('editProfile').style.display='none';">Cancelar</button>
+            </form>
+        </div>
+
+        <div class="profile-actions">
+            <button class="btn" id="editBtn" onclick="document.getElementById('editProfile').style.display='block';">Editar Perfil</button>
+            <a href="user.html"><button class="btn logout">Sair</button></a>
+        </div>
+    </div>
+</body>
+</html>
